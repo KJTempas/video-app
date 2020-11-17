@@ -1,0 +1,16 @@
+{% load static %} <!--load our static files-->
+
+<html>
+    <head>   <!-- water.css  ; could change light to dark for background change-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+    
+</html>
