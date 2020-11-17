@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns =[
     path('', views.home, name='home'), #empty string means the home page
-    path('add', views.add, name='add_video')
+    path('add', views.add, name='add_video'),
+    path('video_list', views.video_list, name='video_list')
 ]

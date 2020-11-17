@@ -1,0 +1,17 @@
+{% extends 'video_collection/base.html' %}
+
+{% block content %}
+
+<h2>Video List</h2>
+
+{% for video in videos %}
+
+    <div>
+        <h3>{{ video.name }}</h3>
+        <p>{{ video.notes }}</p>
+        <p>{{ video.url }}</p>
+    </div>
+    
+{% endfor %}
+
+{% endblock %}
