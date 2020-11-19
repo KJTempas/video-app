@@ -2,3 +2,12 @@ body {
     background-color: lightblue;
     font-size: large;
 }
+
+.navigation {
+    margin: 10px;
+}
+
+.navigation >a { 
+    color: black;
+    padding-right: 30px;
+}
