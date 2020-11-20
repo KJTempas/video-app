@@ -21,10 +21,18 @@
 {% for video in videos %}
 
     <div>
-        <h3>{{ video.name }}</h3>
+        <!--<h3>{{ video.name }}</h3>-->
+        <span id="video-name{{ video.pk }}" class = "video-name">
+            <!--using a href makes video name into a link-->
+            <a href="{% url 'video_detail' video_pk=video.pk %}">{{ video.name }}</a>
+        </span>
+        
         <p>{{ video.notes }}</p> <!-- use iframe to embed video-->
         <iframe width="420" height="315" src="https://youtube.com/embed/{{ video.video_id }}"></iframe>
         <p><a href="{{video.url}}">{{ video.url }}</a></p>
+
+       
+        
     </div>
 
     {% empty %}
