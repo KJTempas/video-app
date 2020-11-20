@@ -11,7 +11,7 @@ class TestHomePageMessage(TestCase):
     def test_app_title_message_shown_on_home_page(self):
         url = reverse('home')
         response = self.client.get(url)
-        self.assertContains(response, 'Exercise Videos')
+        self.assertContains(response, 'Kickboxing Videos')
 
 
 class TestAddVideos(TestCase):
@@ -269,4 +269,25 @@ class TestVideoModel(TestCase):
         Video.objects.create(name='example', url='https://www.youtube.com/watch?v=IODxDxX7oi4')
         with self.assertRaises(IntegrityError):
             Video.objects.create(name='example', url='https://www.youtube.com/watch?v=IODxDxX7oi4')
+
+class TestVideoDetails(TestCase):
+    
+    def test_video_detail_shows_all_data(self):
+        #add videos
+        v1 = Video.objects.create(name='ABC', notes='example1', url='https://www.youtube.com/watch?v=456')
+        v2 = Video.objects.create(name='nope', notes='example2', url='https://www.youtube.com/watch?v=789')
         
+        video_2=Video.objects.get(pk=2) #retrieve video w pk of 2
+
+        response = self.client.get(reverse('video_detail', kwargs={'video_pk':2} )) 
+        #was correct template used?
+        self.assertTemplateUsed(response, 'video_collection/video_detail.html')
+        
+        #retrieve data sent to template
+        data_rendered = response.context['video']
+        #confirm that data is same as data for video_2
+        self.assertEqual(data_rendered, video_2)
+        #confirm correct data shown on page
+        self.assertContains(response, 'nope')
+        self.assertContains(response, 'example2')
+        self.assertContains(response, 'https://www.youtube.com/watch?v=789')
