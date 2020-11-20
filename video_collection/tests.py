@@ -305,9 +305,10 @@ class TestVideoDetails(TestCase):
 class TestDeleteVideo(TestCase):
 
     def test_delete_own_video(self):
+        #add some videos
         v1 = Video.objects.create(name='ABC', notes='example1', url='https://www.youtube.com/watch?v=456')
         v2 = Video.objects.create(name='nope', notes='example2', url='https://www.youtube.com/watch?v=789')
-        
+        #delete video with pk2
         response = self.client.post(reverse('delete_video', args=(2,)), follow=True)
         video_2 = Video.objects.filter(pk=2).first()
         self.assertIsNone(video_2) #video is deleted
