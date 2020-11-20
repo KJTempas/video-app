@@ -291,3 +291,23 @@ class TestVideoDetails(TestCase):
         self.assertContains(response, 'nope')
         self.assertContains(response, 'example2')
         self.assertContains(response, 'https://www.youtube.com/watch?v=789')
+
+    def test_request_video_details_for_nonexistent_video_returns_404(self):
+        #add 2 videos
+        v1 = Video.objects.create(name='ABC', notes='example1', url='https://www.youtube.com/watch?v=456')
+        v2 = Video.objects.create(name='nope', notes='example2', url='https://www.youtube.com/watch?v=789')
+        #request details for video 22, which does not exist
+        response = self.client.get(reverse('video_detail', kwargs={'video_pk':22} )) 
+        #should return 404/not found
+        self.assertEqual(404, response.status_code)
+
+
+class TestDeleteVideo(TestCase):
+
+    def test_delete_own_video(self):
+        v1 = Video.objects.create(name='ABC', notes='example1', url='https://www.youtube.com/watch?v=456')
+        v2 = Video.objects.create(name='nope', notes='example2', url='https://www.youtube.com/watch?v=789')
+        
+        response = self.client.post(reverse('delete_video', args=(2,)), follow=True)
+        video_2 = Video.objects.filter(pk=2).first()
+        self.assertIsNone(video_2) #video is deleted
