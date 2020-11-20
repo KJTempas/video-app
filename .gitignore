@@ -4,4 +4,5 @@ __pycache__
 .idea
 .vscode
 db.sqlite
+db.sqlite3
 *.pyc    

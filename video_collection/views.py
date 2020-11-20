@@ -61,4 +61,8 @@ def video_detail(request, video_pk):
     #render the template
     return render(request, 'video_collection/video_detail.html', {'video': video} )
 
-    
+
+def delete_video(request, video_pk):
+    video = get_object_or_404(Video, pk=video_pk)
+    video.delete()
+    return redirect('video_list')
